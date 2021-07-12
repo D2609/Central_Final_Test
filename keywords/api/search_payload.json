@@ -1,0 +1,62 @@
+{
+    "operationName": "productSearch",
+    "variables": {
+      "filterGroups": [
+        {
+          "filters": [
+            {
+              "field": "status",
+              "value": "1"
+            }
+          ]
+        },
+        {
+          "filters": [
+            {
+              "field": "visibility",
+              "value": "4"
+            }
+          ]
+        },
+        {
+          "filters": [
+            {
+              "field": "expr-p",
+              "value": "(stock.salable=1 OR (stock.ispu_salable=1 AND shipping_methods='storepickup_ispu'))"
+            }
+          ]
+        },
+        {
+          "filters": [
+            {
+              "field": "price",
+              "value": "0",
+              "conditionType": "gt"
+            }
+          ]
+        },
+        {
+          "filters": [
+            {
+              "field": "m_screen_size_group_inches",
+              "value": "44%20-%2055%20inches",
+              "conditionType": "in"
+            }
+          ]
+        },
+        {
+          "filters": [
+            {
+              "field": "search_term",
+              "value": "TV",
+              "conditionType": "eq"
+            }
+          ]
+        }
+      ],
+      "page": 1,
+      "size": 48,
+      "sortOrders": null
+    },
+    "query": "query productSearch($filterGroups: [FilterGroups]!, $page: Int!, $size: Int!, $sortOrders: [SortOrder]) {\n  productSearch(filter: {filterGroups: $filterGroups, sortOrders: $sortOrders, page: $page, size: $size}) {\n    total_count\n    sorting {\n      code\n      name\n    }\n    filters {\n      name\n      attribute_code\n      position\n      items {\n        label\n        value\n        count\n        custom_attributes {\n          parent_id\n          url_path\n          level\n          url_key\n        }\n      }\n    }\n    products {\n      id\n      name\n      visibility\n      url_key\n      sku\n      status\n      breadcrumbs {\n        category_id\n        level\n        name\n        url\n      }\n      type_id\n      image\n      small_image\n      thumbnail\n      short_description\n      price\n      special_price\n      special_from_date\n      special_to_date\n      custom_attributes\n      custom_attributes_option\n      media_gallery_entries {\n        file\n        id\n        label\n        media_type\n        disabled\n        extension_attributes {\n          video_content {\n            media_type\n            video_provider\n            video_url\n            video_title\n            video_description\n            video_metadata\n          }\n        }\n      }\n      extension_attributes {\n        stock_item {\n          qty\n          is_in_stock\n          min_sale_qty\n          max_sale_qty\n        }\n        t1c_redeemable_points\n        installment_plans {\n          ...installmentPlansFragment\n        }\n        overall_rating {\n          rating\n          total_vote\n          five_star\n          four_star\n          three_star\n          two_star\n          one_star\n          rounded_rating\n        }\n        salable\n        ispu_salable\n        category_paths {\n          category_id\n          name\n          level\n          parent_id\n        }\n        overlays {\n          overlay_image\n          overlay_status\n          mobile_overlay_status\n          overlay_start_date\n          overlay_end_date\n          overlay_position\n        }\n        configurable_product_links\n        flash_sale_price {\n          start_date\n          end_date\n          special_price\n        }\n      }\n    }\n  }\n}\n\nfragment installmentPlansFragment on InstallmentPlanInterface {\n  installmentplan_id\n  name\n  bank_id\n  bank {\n    bank_id\n    bank_image\n    icon\n    active\n    color\n    name\n  }\n  currency\n  period\n  merchant_rate\n  customer_rate\n  interest_type\n  installment_type\n  min_amount\n  max_amount\n  active\n  valid_from\n  valid_until\n  create\n}\n"
+  }
